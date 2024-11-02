@@ -1,279 +1,94 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>laporan</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
-    <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            overflow: hidden;
-            touch-action: none;
-        }
-
-        #appsScriptIframe {
-            width: 100%;
-            height: 100vh;
-            border: none;
-        }
-
-        .marquee {
-            position: absolute;
-            white-space: nowrap;
-            animation: marquee 10s linear infinite;
-            color: white;
-            font-size: 12px;
-            font-family: Arial, sans-serif;
-        }
-        @keyframes marquee {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(200%); }
-        }
-
-        .hamburger, .bottom-nav {
-            display: none;
-        }
-
-        .hamburger {
-            margin-left: 5px;
-            margin-top: 15px;
-            position: absolute;
-            width: 30px;
-            cursor: pointer;
-        }
-
-        .bar {
-            width: 50%;
-            height: 4px;
-            background-color: #333;
-            margin: 5px 0;
-            transition: 0.4s;
-        }
-
-        .menu {
-            position: fixed;
-            left: 0;
-            top: 40px;
-            width: 150px;
-            height: 100%;
-            background-color: grey;
-            color: white;
-            padding-top: 10px;
-            transform: translateX(-100%);
-            transition: transform 0.3s ease;
-        }
-
-        .menu ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .menu ul li {
-            padding: 3px;
-            text-align: left;
-        }
-
-        .menu ul li a {
-            color: white;
-            text-decoration: none;
-            display: block;
-            padding: 10px 15px;
-        }
-
-        .menu ul li a:hover {
-            background-color: #575757;
-        }
-
-        .menu.active {
-            transform: translateX(0);
-        }
-
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            background-color: rgba(255, 255, 255, 0.6);
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 10px 0;
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-        }
-
-        .bottom-nav a, .bottom-nav button {
-            text-align: center;
-            text-decoration: none;
-            color: #666;
-            font-size: 12px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0;
-        }
-
-        .bottom-nav i {
-            font-size: 24px;
-            margin-bottom: 5px;
-        }
-
-        .bottom-nav a.active, .bottom-nav button.active {
-            color: #1d4ed8;
-        }
-
-        #appLoadingGif {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            display: block;
-            z-index: 1000;
-        }
-
-        #iframeLoadingGif {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            display: none;
-            z-index: 1000;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bottom Navigation with Links and Function</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background-color: #f4f4f4;
+    }
+    /* Container for bottom navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.6);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 10px 0;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+    }
+    /* Each navigation item */
+    .bottom-nav button {
+      text-align: center;
+      color: #666;
+      font-size: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+    }
+    /* Styling for active item */
+    .bottom-nav button.active {
+      color: #1d4ed8;
+    }
+    /* Icon size */
+    .bottom-nav i {
+      font-size: 24px;
+      margin-bottom: 5px;
+    }
+  </style>
 </head>
 <body>
-    <div class="marquee">copy right hafizkid 2024</div>
-    
-    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-    </div>
 
-    <div class="menu" id="menu">
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
-    </div>
+  <!-- Bottom Navigation -->
+  <div class="bottom-nav">
+    <button onclick="runAppScriptFunction('menu')">
+      <i class="fas fa-list"></i>
+      <span>Menu</span>
+    </button>
+    <button onclick="runAppScriptFunction('kasir')">
+      <i class="fas fa-cash-register"></i>
+      <span>Kasir</span>
+    </button>
+    <button onclick="runAppScriptFunction('simpan')">
+      <i class="fas fa-save"></i>
+      <span>Simpan</span>
+    </button>
+    <button onclick="runAppScriptFunction('laporan')">
+      <i class="fas fa-chart-line"></i>
+      <span>Laporan</span>
+    </button>
+  </div>
 
-    <div id="appLoadingGif">
-<img src="https://docs.google.com/thumbnail?sz=w800&id=1tEoY855Ra_49nxULrhW2ykVFP55PbsM1" alt="Loading Data...">
-    </div>
+  <script>
+    // Function to call specific Apps Script functions based on the button clicked
+    function runAppScriptFunction(action) {
+      const scriptUrl = "https://script.google.com/macros/s/AKfycby6bRAgMSpYFUqh52Tws2hcgJ3spKh5LD5F3qMSsaD0gxvqsdvOqFXz-YBXs8i7L1NjRw/exec";
+      
+      // Send a request to the Apps Script URL with the action parameter
+      fetch(`${scriptUrl}?action=${action}`)
+        .then(response => response.json())
+        .then(data => {
+          // Handle the response data if needed
+          alert(`Response from ${action}: ${data.message}`);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+  </script>
 
-    <div id="iframeLoadingGif">
-        <img src="https://docs.google.com/thumbnail?sz=w800&id=1r_ljrcP7CoZQWDgW4fT6gDTxIBZXEtxb" alt="Loading App...">
-
-    </div>
-
-    <iframe id="appsScriptIframe" src="" scrolling="no" onload="hideLoadingGifs()"></iframe>
-
-    <div class="bottom-nav" id="bottomNav">
-        <a href="javascript:void(0);" id="menulink">
-            <i class="fas fa-home"></i>
-            <span>Beranda</span>
-        </a>
-        <a href="javascript:void(0);" id="restoLink">
-            <i class="fas fa-shopping-bag"></i>
-            <span>resto</span>
-        </a>
-        <a href="javascript:void(0);" id="kasirLink">
-            <i class="fas fa-store"></i>
-            <span>kasir</span>
-        </a>
-        <a href="javascript:void(0);" onclick="openLaporan()">
-            <i class="fas fa-gem"></i>
-            <span>laporan</span>
-        </a>
-        <button onclick="openLifestyle()">
-            <i class="fas fa-th-large"></i>
-            <span>Menu</span>
-        </button>
-    </div>
-
-    <script>
-        function showIframeLoadingGif() {
-            document.getElementById("iframeLoadingGif").style.display = "block";
-        }
-
-        function hideLoadingGifs() {
-            document.getElementById("appLoadingGif").style.display = "none";
-            document.getElementById("iframeLoadingGif").style.display = "none";
-        }
-
-        function toggleMenu() {
-            var menu = document.getElementById("menu");
-            menu.classList.toggle("active");
-        }
-
-        function openLaporan() {
-            showIframeLoadingGif();
-            const urlParams = new URLSearchParams(window.location.search);
-            const items = urlParams.get("items") || "warungku";
-            const laporanUrl = `https://script.google.com/macros/s/AKfycbxsJtZuw5OngU5ilZuJP1Ebz--GwR5ekCGwNVZYVRBtVS_Bx7gYET_0hhVSkq9_cDco-Q/exec?items=${encodeURIComponent(items)}`;
-            document.getElementById("appsScriptIframe").src = laporanUrl;
-        }
-
-        function openLifestyle() {
-            alert('Lifestyle button clicked! Menjalankan fungsi...');
-        }
-
-        function checkUserType() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const user = urlParams.get("user") || "";  // Default empty if user is not provided
-
-            const hamburger = document.getElementById("hamburger");
-            const bottomNav = document.getElementById("bottomNav");
-
-            if (user === "konsumen") {
-                hamburger.style.display = "none";
-                bottomNav.style.display = "none";
-            } else if (user === "admin") {
-                hamburger.style.display = "block";
-                bottomNav.style.display = "none";
-            } else if (user === "owner") {
-                hamburger.style.display = "block";
-                bottomNav.style.display = "flex";
-            } else {
-                hamburger.style.display = "none";
-                bottomNav.style.display = "none";
-            }
-        }
-
-        window.onload = function() {
-            checkUserType(); // Check user type and adjust visibility
-
-            const urlParams = new URLSearchParams(window.location.search);
-            const items = urlParams.get("items") || "warungku";
-            const meja = urlParams.get("meja") || "default";
-            const iframe = document.getElementById("appsScriptIframe");
-            const scriptUrl = "https://script.google.com/macros/s/AKfycby6bRAgMSpYFUqh52Tws2hcgJ3spKh5LD5F3qMSsaD0gxvqsdvOqFXz-YBXs8i7L1NjRw/exec";
-
-            iframe.src = `${scriptUrl}?items=${encodeURIComponent(items)}&meja=${encodeURIComponent(meja)}`;
-
-            document.getElementById("restoLink").onclick = function() {
-                showIframeLoadingGif();
-                iframe.src = `https://script.google.com/macros/s/AKfycbw6lrmCWypA7_pvppQxyLku9FzARuTbokRgtH_LB4DlYrZtd8hbTm1OEIUWX-W4-gThKQ/exec?items=${encodeURIComponent(items)}`;
-            };
-
-            document.getElementById("kasirLink").onclick = function() {
-                showIframeLoadingGif();
-                iframe.src = `https://script.google.com/macros/s/AKfycbzRBIQQP1auQ6WQNSUUwLAdO0IAJS9qMApPh7NEILqa6oRlZKagW8s83rftXFyPdqAzHg/exec?items=${encodeURIComponent(items)}`;
-            };
-
-            document.getElementById("menulink").onclick = function() {
-                showIframeLoadingGif();
-                iframe.src = `${scriptUrl}?items=${encodeURIComponent(items)}&meja=${encodeURIComponent(meja)}`;
-            };
-        };
-    </script>
 </body>
 </html>
